@@ -1,4 +1,3 @@
-from PIL import Image
 import tempfile
 import requests
 import io
@@ -6,20 +5,22 @@ import os
 import boto3
 import base64
 import json
+from PIL import Image
 from urllib.parse import urlparse
 
 # Pillow supported formats:
 # BLP, BMP, DDS, DIB, EPS, GIF, ICNS, ICO, IM, JPG, JPEG, MSP, PCX, PNG, PPM, SPIDER, TGA, TIFF, WEBP, XBM
 
-buffer = tempfile.SpooledTemporaryFile(max_size=1e9)
 s3_client = boto3.client('s3')
+
+# @TODO: Add typings for buffer.
 
 
 def is_absolute(url):
     return bool(urlparse(url).netloc)
 
 
-def download_image(img_url: str):
+def download_image(buffer, img_url: str):
     print("Downloading image...")
 
     r = requests.get(img_url, stream=True)
@@ -46,7 +47,7 @@ def download_image(img_url: str):
     return {'content_type': content_type, 'extension': extension, 'content_size': content_size}
 
 
-def get_s3_image(bucket: str, key: str):
+def get_s3_image(buffer, bucket: str, key: str):
     print("Downloading image from S3...")
     r = s3_client.head_object(Bucket=bucket, Key=key)
 
@@ -58,10 +59,9 @@ def get_s3_image(bucket: str, key: str):
     return {'content_type': content_type, 'extension': extension, 'content_size': content_size}
 
 
-def optimize_image(ext: str, width: int = 0, quality: int = 70):
+def optimize_image(buffer, ext: str, width: int = 0, quality: int = 70):
     print("Optimizing image...")
     img = Image.open(io.BytesIO(buffer.read()))
-    buffer.close()
 
     if (width > 0 & width < img.width):
         print("Resizing image...")
@@ -80,42 +80,51 @@ def optimize_image(ext: str, width: int = 0, quality: int = 70):
 
 
 def handler(event, context):
-    print("Starting...")
+    buffer = tempfile.TemporaryFile()
+    try:
+        print("Starting...")
 
-    bucket_name = os.environ['S3_BUCKET_NAME']
+        bucket_name = os.environ['S3_BUCKET_NAME']
 
-    url = event['queryStringParameters']['url']
-    width = int(event['queryStringParameters']['w'])
-    quality = int(event['queryStringParameters']['q'])
+        url = event['queryStringParameters']['url']
+        width = int(event['queryStringParameters']['w'])
+        quality = int(event['queryStringParameters']['q'])
 
-    print(url, width, quality)
+        print(url, width, quality)
 
-    response = None
+        response = None
 
-    if (is_absolute(url)):
-        response = download_image(url)
-    else:
-        key = url.strip('/')
-        response = get_s3_image(bucket_name, key)
+        if (is_absolute(url)):
+            response = download_image(buffer, url)
+        else:
+            key = url.strip('/')
+            response = get_s3_image(buffer, bucket_name, key)
 
-    print(response)
+        print(response)
 
-    content_type = response['content_type']
-    content_size = response['content_size']
-    extension = response['extension']
+        content_type = response['content_type']
+        content_size = response['content_size']
+        extension = response['extension']
 
-    image_data = optimize_image(ext=extension, width=width, quality=quality)
+        image_data = optimize_image(
+            buffer,
+            ext=extension,
+            width=width,
+            quality=quality
+        )
 
-    print("Returning data...")
-    return {
-        'statusCode': 200,
-        'body': image_data,
-        'isBase64Encoded': True,
-        'headers': {
-            'Vary': 'Accept',
-            'Content-Type': content_type
+        print("Returning data...")
+        return {
+            'statusCode': 200,
+            'body': image_data,
+            'isBase64Encoded': True,
+            'headers': {
+                'Vary': 'Accept',
+                'Content-Type': content_type
+            }
         }
-    }
+    finally:
+        buffer.close()
 
 
 if __name__ == '__main__':
