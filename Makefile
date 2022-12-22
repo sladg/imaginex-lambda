@@ -25,7 +25,7 @@ zip-deps:
 	zip -q -r ./build/optimizer-layer.zip ./python
 
 zip-code:
-	zip -q -x "python/*" -x "dist/*" -x ".git*/*" -q -r ./build/optimizer-code.zip .
+	zip -q -x "python/*" -x "dist/*" -x ".git*/*" -q -r ./build/optimizer-code.zip ./imaginex-lambda/*
 
 # Pack the dependencies into a zip file and include code as separate zip file.
 package:

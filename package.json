@@ -8,13 +8,12 @@
   },
   "license": "MIT",
   "author": "Jan Soukup <jan@ssoukup.com>",
-  "exports": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": "./build/index.js",
+  "types": "./build/index.d.ts",
   "files": [
     "build"
   ],
   "scripts": {
-    "prebuild": "rm -rf dist",
     "build": "tsup ./lib/index.ts --dts ./lib/index.ts --out-dir build"
   },
   "dependencies": {
