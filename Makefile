@@ -2,7 +2,7 @@
 commit:
 	npx --package cz-emoji-conventional --package commitizen -- cz
 
-shipit:
+release:
 	npx --package @sladg/nextjs-lambda next-utils shipit --gitUser @sladg --gitEmail jan@ssoukup.com --changelog
 
 install:
