@@ -1,0 +1,30 @@
+{
+  "name": "@sladg/imaginex-lambda",
+  "version": "0.0.1",
+  "description": "Pre-compiled python lambda used for image processing",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sladg/imaginex-lambda"
+  },
+  "license": "MIT",
+  "author": "Jan Soukup <jan@ssoukup.com>",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsup ./lib/index.ts --dts ./lib/index.ts --out-dir build"
+  },
+  "dependencies": {
+    "@types/node": "^18.11.17"
+  },
+  "devDependencies": {
+    "tsup": "^6.5.0"
+  },
+  "engines": {
+    "node": ">=16.15"
+  },
+  "engineStrict": true
+}
