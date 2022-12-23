@@ -3,7 +3,7 @@ commit:
 	npx --package cz-emoji-conventional --package commitizen -- cz
 
 release:
-	npx --package @sladg/nextjs-lambda next-utils shipit --gitUser @sladg --gitEmail jan@ssoukup.com --changelog
+	npx --package @sladg/release-utils utils shipit --gitUser @sladg --gitEmail jan@ssoukup.com --changelog
 
 install:
 	poetry install && npm ci
