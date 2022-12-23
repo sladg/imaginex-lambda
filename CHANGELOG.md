@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [v0.2.6](https://github.com/sladg/imaginex-lambda/compare/v0.2.4...v0.2.6)
+
+* 🐛 fix(release): change package to correct one [[cd762f6b8a79e55f77b8520775602e10380f53b0](https://github.com/sladg/imaginex-lambda/commit/cd762f6b8a79e55f77b8520775602e10380f53b0))]
+* 🐛 fix(exports): correctly export version and name of the package [[e7b74f14d158ab7c00cc930c09e8770b903aa81d](https://github.com/sladg/imaginex-lambda/commit/e7b74f14d158ab7c00cc930c09e8770b903aa81d))]
+
+
 ## [v0.2.4](https://github.com/sladg/imaginex-lambda/compare/v0.2.3...v0.2.4)
 
 * fix(output): correct naming of zips [[c60f6e7b05eb4c37a9823181766564a495051d6a](https://github.com/sladg/imaginex-lambda/commit/c60f6e7b05eb4c37a9823181766564a495051d6a))]
@@ -33,6 +39,8 @@
 
 ## [v0.0.1](https://github.com/sladg/imaginex-lambda/compare/v0.0.1)
 
+* 🐛 fix(release): change package to correct one [[cd762f6b8a79e55f77b8520775602e10380f53b0](https://github.com/sladg/imaginex-lambda/commit/cd762f6b8a79e55f77b8520775602e10380f53b0))]
+* 🐛 fix(exports): correctly export version and name of the package [[e7b74f14d158ab7c00cc930c09e8770b903aa81d](https://github.com/sladg/imaginex-lambda/commit/e7b74f14d158ab7c00cc930c09e8770b903aa81d))]
 * fix(output): correct naming of zips [[c60f6e7b05eb4c37a9823181766564a495051d6a](https://github.com/sladg/imaginex-lambda/commit/c60f6e7b05eb4c37a9823181766564a495051d6a))]
 * fix(binaries): correctly compile libraries so they are compatible with lambda env [[88250e70ce20582cdb37f97a5f7780718c4ad456](https://github.com/sladg/imaginex-lambda/commit/88250e70ce20582cdb37f97a5f7780718c4ad456))]
 * fix(pillow): rely on external layers instead of bundling ourselves [[9c8cf49190c1272dd52e558b798f537eb7c8cd8f](https://github.com/sladg/imaginex-lambda/commit/9c8cf49190c1272dd52e558b798f537eb7c8cd8f))]

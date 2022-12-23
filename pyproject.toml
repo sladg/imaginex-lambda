@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "imaginex-lambda"
-version = "0.2.4"
+version = "0.2.6"
 description = ""
 authors = ["Jan Soukup <jan@ssoukup.com>"]
 readme = "README.md"
