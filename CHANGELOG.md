@@ -1,6 +1,11 @@
 # Changelog
 
 
+## [v0.2.4](https://github.com/sladg/imaginex-lambda/compare/v0.2.3...v0.2.4)
+
+* fix(output): correct naming of zips [[c60f6e7b05eb4c37a9823181766564a495051d6a](https://github.com/sladg/imaginex-lambda/commit/c60f6e7b05eb4c37a9823181766564a495051d6a))]
+
+
 ## [v0.2.3](https://github.com/sladg/imaginex-lambda/compare/v0.2.2...v0.2.3)
 
 * fix(binaries): correctly compile libraries so they are compatible with lambda env [[88250e70ce20582cdb37f97a5f7780718c4ad456](https://github.com/sladg/imaginex-lambda/commit/88250e70ce20582cdb37f97a5f7780718c4ad456))]
@@ -28,6 +33,7 @@
 
 ## [v0.0.1](https://github.com/sladg/imaginex-lambda/compare/v0.0.1)
 
+* fix(output): correct naming of zips [[c60f6e7b05eb4c37a9823181766564a495051d6a](https://github.com/sladg/imaginex-lambda/commit/c60f6e7b05eb4c37a9823181766564a495051d6a))]
 * fix(binaries): correctly compile libraries so they are compatible with lambda env [[88250e70ce20582cdb37f97a5f7780718c4ad456](https://github.com/sladg/imaginex-lambda/commit/88250e70ce20582cdb37f97a5f7780718c4ad456))]
 * fix(pillow): rely on external layers instead of bundling ourselves [[9c8cf49190c1272dd52e558b798f537eb7c8cd8f](https://github.com/sladg/imaginex-lambda/commit/9c8cf49190c1272dd52e558b798f537eb7c8cd8f))]
 * fix(publishing): correctly set folders and outputs [[5c511e5a5b0bf0c73143bd10d2210a78c7719450](https://github.com/sladg/imaginex-lambda/commit/5c511e5a5b0bf0c73143bd10d2210a78c7719450))]
