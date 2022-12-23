@@ -20,6 +20,12 @@ Response is base64 encoded image.
 Supports all formats supported by Pillow.
 Faster and easily deployable than NextJS image optimizer.
 
+## Notes
+
+Only 3.8 python runtime is supported!
+
+If you want to compile python modules for Lambda, make sure to set `--platform manylinux2014_x86_64`. It's important to set this in order to have compatible binaries in Lambda's execution environment.
+
 ---
 
 Child directory of: http://github.com/sladg/nextjs-lambda

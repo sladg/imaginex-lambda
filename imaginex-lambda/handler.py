@@ -1,10 +1,10 @@
-import tempfile
 import requests
 import io
 import os
 import boto3
 import base64
 import json
+import filetype
 from PIL import Image
 from urllib.parse import urlparse
 
@@ -14,10 +14,23 @@ from urllib.parse import urlparse
 s3_client = boto3.client('s3')
 
 # @TODO: Add typings for buffer.
+# @TODO: Add placeholder image for errors.
+# @TODO: Return error reason in headers.
 
 
 def is_absolute(url):
     return bool(urlparse(url).netloc)
+
+
+def get_extension(buffer):
+    print("Getting extension...")
+
+    kind = filetype.guess(buffer)
+    content_type = kind.mime
+    extension = content_type.upper().replace('IMAGE/', '')
+
+    print(f"Extension: {extension}")
+    return {'content_type': content_type, 'extension': extension}
 
 
 def download_image(buffer, img_url: str):
@@ -26,7 +39,6 @@ def download_image(buffer, img_url: str):
     r = requests.get(img_url, stream=True)
 
     content_type = r.headers['content-type']
-    extension = content_type.upper().replace('IMAGE/', '')
     content_size = int(r.headers['content-length'])
     print(content_type)
 
@@ -44,7 +56,7 @@ def download_image(buffer, img_url: str):
     buffer.seek(0)
 
     print("Downloaded!")
-    return {'content_type': content_type, 'extension': extension, 'content_size': content_size}
+    return {'content_type': content_type, 'content_size': content_size}
 
 
 def get_s3_image(buffer, bucket: str, key: str):
@@ -80,11 +92,11 @@ def optimize_image(buffer, ext: str, width: int = 0, quality: int = 70):
 
 
 def handler(event, context):
-    buffer = tempfile.TemporaryFile()
+    buffer = io.BytesIO()
     try:
         print("Starting...")
 
-        bucket_name = os.environ['S3_BUCKET_NAME']
+        bucket_name = os.getenv('S3_BUCKET_NAME', 'bucket-name-not-set')
 
         url = event['queryStringParameters']['url']
         width = int(event['queryStringParameters']['w'])
@@ -102,9 +114,11 @@ def handler(event, context):
 
         print(response)
 
-        content_type = response['content_type']
-        content_size = response['content_size']
-        extension = response['extension']
+        # content_type = response['content_type']
+        # content_size = response['content_size']
+        mime = get_extension(buffer)
+        content_type = mime['content_type']
+        extension = mime['extension']
 
         image_data = optimize_image(
             buffer,
@@ -130,5 +144,5 @@ def handler(event, context):
 if __name__ == '__main__':
     print("Running test...")
 
-    data = json.load(open('example/event-absolute.json'))
+    data = json.load(open('example/event-absolute-jfif.json'))
     handler(data, None)
