@@ -23,10 +23,10 @@ package-dependencies:
 	zip -q -r ./build/dependencies-layer.zip ./python
 
 package-code:
-	zip -q -r ./build/code.zip ./imaginex-lambda/*
+	zip -q -r ./build/code.zip ./imaginex_lambda/*
 
 start:
-	poetry run python ./imaginex-lambda/handler.py
+	poetry run python ./imaginex_lambda/handler.py
 
 test:
 	poetry run pytest

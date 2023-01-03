@@ -31,6 +31,8 @@ jobs:
           cache: 'npm'
       - name: Install Poetry & NPM dependencies
         run: make install
+      - name: Run tests
+        run: make test
       - name: Build CLI & Python package
         run: make package
       - name: Release
