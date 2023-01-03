@@ -28,6 +28,9 @@ package-code:
 start:
 	poetry run python ./imaginex-lambda/handler.py
 
+test:
+	poetry run pytest
+
 # Pack the dependencies into a zip file and include code as separate zip file.
 package:
 	rm -rf build

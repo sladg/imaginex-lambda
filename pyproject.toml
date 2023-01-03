@@ -1,10 +1,8 @@
 [tool.poetry]
 name = "imaginex-lambda"
 version = "0.2.6"
-description = ""
+description = "Image optimizer for processing NextJS image requests"
 authors = ["Jan Soukup <jan@ssoukup.com>"]
-readme = "README.md"
-packages = [{ include = "imaginex-lambda" }]
 
 [tool.poetry.dependencies]
 python = "~3.8"
