@@ -3,3 +3,4 @@ python
 build
 node_modules/**
 .vscode
+.pytest_cache/
