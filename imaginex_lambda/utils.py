@@ -6,6 +6,14 @@ from urllib.parse import urlparse
 import filetype
 
 
+class HandlerError(Exception):
+    code: int
+
+    def __init__(self, msg: str, code=422) -> None:
+        super().__init__(msg)
+        self.code = code
+
+
 def success(image_data, headers):
     return {
         'statusCode': 200,
