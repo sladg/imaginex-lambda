@@ -134,8 +134,10 @@ def download_and_optimize(url: str, quality: int, width: int):
             quality=quality
         )
 
+    ratio = len(image_data) / original if original != 0 else 0
+
     print("Returning data...")
-    return image_data, content_type, len(image_data) / original
+    return image_data, content_type, ratio
 
 
 if __name__ == '__main__':
