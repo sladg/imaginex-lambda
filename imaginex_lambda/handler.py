@@ -8,7 +8,7 @@ from urllib.request import urlopen
 import botocore.session
 from PIL import Image
 
-from imaginex_lambda.utils import error, success, is_absolute, get_extension
+from imaginex_lambda.utils import error, success, is_absolute, get_extension, HandlerError
 
 DOWNLOAD_CHUNK_SIZE = int(os.getenv('DOWNLOAD_CHUNK_SIZE', 1024))
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME', None)
@@ -74,6 +74,12 @@ def optimize_image(buffer: IO[bytes], ext: str, width: int, quality: int):
 
 
 def handler(event, context):
+    """
+    Lambda function handler.
+
+    Its sole responsibility is to to parse the context and generate a formatted response, including error responses.
+    Any image processing logic should be performed by other functions, to make unit testing easier.
+    """
     try:
         print("Starting...")
 
@@ -84,38 +90,51 @@ def handler(event, context):
 
         print(url, width, quality)
 
-        if not url:
-            return error('url is required')
-        if width <= 0:
-            return error('width must be greater than zero')
+        image_data, content_type, optimization_ratio = download_and_optimize(url, quality, width)
 
-        with TemporaryFile() as buffer:
-            if is_absolute(url):
-                download_image(buffer, url)
-            else:
-                key = url.strip('/')
-                get_s3_image(buffer, key)
-
-            original = os.stat(buffer.name).st_size
-            mime = get_extension(buffer)
-            content_type = mime['content_type']
-            extension = mime['extension']
-
-            image_data = optimize_image(
-                buffer,
-                ext=extension,
-                width=width,
-                quality=quality
-            )
-
-        print("Returning data...")
         return success(image_data, {
             'Vary': 'Accept',
             'Content-Type': content_type,
-            'X-Optimization-Ratio': f'{len(image_data) / original:.4f}',
+            'X-Optimization-Ratio': f'{optimization_ratio:.4f}',
         })
+    except HandlerError as exc:
+        return error(str(exc), code=exc.code)
     except Exception as exc:
         return error(str(exc), code=500)
+
+
+def download_and_optimize(url: str, quality: int, width: int):
+    """
+    This is the function responsible for coordinating the download and optimization of the images. It should
+    not concern itself with any lambda-specific information.
+    """
+
+    if not url:
+        raise HandlerError('url is required')
+    if width <= 0:
+        raise HandlerError('width must be greater than zero')
+
+    with TemporaryFile() as buffer:
+        if is_absolute(url):
+            download_image(buffer, url)
+        else:
+            key = url.strip('/')
+            get_s3_image(buffer, key)
+
+        original = os.stat(buffer.name).st_size
+        mime = get_extension(buffer)
+        content_type = mime['content_type']
+        extension = mime['extension']
+
+        image_data = optimize_image(
+            buffer,
+            ext=extension,
+            width=width,
+            quality=quality
+        )
+
+    print("Returning data...")
+    return image_data, content_type, len(image_data) / original
 
 
 if __name__ == '__main__':
