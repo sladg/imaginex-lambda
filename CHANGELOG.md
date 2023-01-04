@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [v0.7.0](https://github.com/sladg/imaginex-lambda/compare/v0.5.0...v0.7.0)
+
+* 🐛 fix(ratio): prevent future "division by zero" bugs on ratio calculation [[ef778bc8a147701265e162fc8d93089d9898ff1f](https://github.com/sladg/imaginex-lambda/commit/ef778bc8a147701265e162fc8d93089d9898ff1f))]
+* 🐛 fix(ratio): handle very small image edge case [[563f886fe3a31a14e22c473b98b2bcd6d26c9759](https://github.com/sladg/imaginex-lambda/commit/563f886fe3a31a14e22c473b98b2bcd6d26c9759))]
+* ♻️ refactor(handler): isolates the handler code from the image processing [[6731100aa4cb71acbb6aba48755717339987b80a](https://github.com/sladg/imaginex-lambda/commit/6731100aa4cb71acbb6aba48755717339987b80a))]
+* 🧪 test(handler): replaces example JSON files for a programmatic approach [[36f2fe9659bd0781dc2be2284089b455addf41bf](https://github.com/sladg/imaginex-lambda/commit/36f2fe9659bd0781dc2be2284089b455addf41bf))]
+
+
 ## [v0.5.0](https://github.com/sladg/imaginex-lambda/compare/v0.2.6...v0.5.0)
 
 * 📦 ci(tests): include test command before release, correct folder naming [[b609483a5bbcaaa00c97fae8843502970529456b](https://github.com/sladg/imaginex-lambda/commit/b609483a5bbcaaa00c97fae8843502970529456b))]
@@ -47,6 +55,10 @@
 
 ## [v0.0.1](https://github.com/sladg/imaginex-lambda/compare/v0.0.1)
 
+* 🐛 fix(ratio): prevent future "division by zero" bugs on ratio calculation [[ef778bc8a147701265e162fc8d93089d9898ff1f](https://github.com/sladg/imaginex-lambda/commit/ef778bc8a147701265e162fc8d93089d9898ff1f))]
+* 🐛 fix(ratio): handle very small image edge case [[563f886fe3a31a14e22c473b98b2bcd6d26c9759](https://github.com/sladg/imaginex-lambda/commit/563f886fe3a31a14e22c473b98b2bcd6d26c9759))]
+* ♻️ refactor(handler): isolates the handler code from the image processing [[6731100aa4cb71acbb6aba48755717339987b80a](https://github.com/sladg/imaginex-lambda/commit/6731100aa4cb71acbb6aba48755717339987b80a))]
+* 🧪 test(handler): replaces example JSON files for a programmatic approach [[36f2fe9659bd0781dc2be2284089b455addf41bf](https://github.com/sladg/imaginex-lambda/commit/36f2fe9659bd0781dc2be2284089b455addf41bf))]
 * 📦 ci(tests): include test command before release, correct folder naming [[b609483a5bbcaaa00c97fae8843502970529456b](https://github.com/sladg/imaginex-lambda/commit/b609483a5bbcaaa00c97fae8843502970529456b))]
 * 💎 style(pyproject): improved style, added easy command for tests [[c977063c26a9b641843e55e6984d59ebab0bc1b5](https://github.com/sladg/imaginex-lambda/commit/c977063c26a9b641843e55e6984d59ebab0bc1b5))]
 * Merge pull request #1 from fabiob/optimizations [[e6236e4d2a99887d5477602c11fd59e99624c532](https://github.com/sladg/imaginex-lambda/commit/e6236e4d2a99887d5477602c11fd59e99624c532))]
