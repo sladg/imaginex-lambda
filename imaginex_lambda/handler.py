@@ -121,6 +121,7 @@ def download_and_optimize(url: str, quality: int, width: int):
             key = url.strip('/')
             get_s3_image(buffer, key)
 
+        buffer.flush()
         original = os.stat(buffer.name).st_size
         mime = get_extension(buffer)
         content_type = mime['content_type']

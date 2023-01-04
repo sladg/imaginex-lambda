@@ -30,9 +30,10 @@ def test_handler_success():
 
 @pytest.mark.parametrize('expected_ratio,expected_type,q,w,url', [
     (0.0037, 'image/png', 80, 100, "example.png"),
-    (0.0110, 'image/jpeg', 40, 250, "https://s3.eu-central-1.amazonaws.com/fllite-dev-main/"
+    (0.0109, 'image/jpeg', 40, 250, "https://s3.eu-central-1.amazonaws.com/fllite-dev-main/"
                                     "business_case_custom_images/sun_valley_2_5f84953fef8c6_63a2668275433.jfif"),
-    (0.2109, 'image/jpeg', 80, 100, "http://site.meishij.net/r/58/25/3568808/a3568808_142682562777944.jpg"),
+    (0.1770, 'image/jpeg', 80, 100, "http://site.meishij.net/r/58/25/3568808/a3568808_142682562777944.jpg"),
+    (0.6733, 'image/jpeg', 80, 100, "https://www.gravatar.com/avatar/617bdc1719f77448a4f96eb92e1ac02b?s=80&d=mp"),
 ])
 def test_process_success(expected_ratio, expected_type, q, w, url):
     if not url.startswith('http') and S3_BUCKET_NAME is None:
