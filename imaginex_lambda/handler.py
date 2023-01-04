@@ -1,4 +1,3 @@
-import json
 import os
 import shutil
 from contextlib import ExitStack
@@ -122,5 +121,8 @@ def handler(event, context):
 if __name__ == '__main__':
     print("Running test...")
 
-    data = json.load(open('example/event-absolute-jfif.json'))
-    handler(data, None)
+    context = {'queryStringParameters':
+               {'q': '40', 'w': '250',
+                'url': 'https://s3.eu-central-1.amazonaws.com/fllite-dev-main/'
+                       'business_case_custom_images/sun_valley_2_5f84953fef8c6_63a2668275433.jfif'}}
+    handler(context, None)
