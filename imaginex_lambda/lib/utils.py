@@ -23,11 +23,11 @@ def is_absolute(url: str) -> bool:
 
 
 def get_extension(buffer: IO[bytes]) -> Dict:
-    print("Getting extension...")
+    logger.info("Getting extension...")
 
     kind = filetype.guess(buffer)
     content_type = kind.mime
     extension = content_type.upper().replace('IMAGE/', '')
 
-    print(f"Extension: {extension}")
+    logger.info(f"Extension: {extension}")
     return {'content_type': content_type, 'extension': extension}
