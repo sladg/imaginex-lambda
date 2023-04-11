@@ -1,5 +1,5 @@
 import base64
-from typing import IO
+from typing import IO, Dict
 from urllib.parse import urlparse
 import filetype
 import logging
@@ -9,7 +9,7 @@ logger.setLevel(logging.INFO)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-def success(image_data, headers):
+def success(image_data: bytes, headers: Dict[str]) -> Dict:
     return {
         'statusCode': 200,
         'body': base64.b64encode(image_data).decode(),
@@ -18,11 +18,11 @@ def success(image_data, headers):
     }
 
 
-def is_absolute(url: str):
+def is_absolute(url: str) -> bool:
     return bool(urlparse(url).netloc)
 
 
-def get_extension(buffer: IO[bytes]):
+def get_extension(buffer: IO[bytes]) -> Dict:
     print("Getting extension...")
 
     kind = filetype.guess(buffer)
