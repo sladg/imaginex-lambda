@@ -1,5 +1,4 @@
 import base64
-import json
 from typing import IO
 from urllib.parse import urlparse
 import filetype
@@ -9,6 +8,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 def success(image_data, headers):
     return {
         'statusCode': 200,
@@ -16,6 +16,7 @@ def success(image_data, headers):
         'isBase64Encoded': True,
         'headers': headers
     }
+
 
 def is_absolute(url: str):
     return bool(urlparse(url).netloc)

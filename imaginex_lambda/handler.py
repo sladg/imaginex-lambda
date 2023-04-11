@@ -1,4 +1,5 @@
 import os
+from typing import Dict, Optional
 
 from PIL import Image
 
@@ -12,7 +13,7 @@ DOWNLOAD_CHUNK_SIZE = int(os.getenv('DOWNLOAD_CHUNK_SIZE', 1024))
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME', None)
 
 
-def handler(event, context):
+def handler(event: Dict, context: Optional[Dict]):
     """
     Lambda function handler.
 
@@ -51,14 +52,14 @@ if __name__ == '__main__':
     import base64
 
     logger.info("Running test...")
-    context = {
+    test_context = {
         'queryStringParameters':
             {
                 'q': '40', 'w': '250',
                 'url': 'https://s3.eu-central-1.amazonaws.com/fllite-dev-main/'
                        'business_case_custom_images/sun_valley_2_5f84953fef8c6_63a2668275433.jfif'}
     }
-    res = handler(context, None)
+    res = handler(test_context, None)
     img = res['body']
     Image.open(BytesIO(base64.b64decode(img.encode()))).show()
     logger.info("Test ended...")
