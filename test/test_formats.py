@@ -28,8 +28,8 @@ def test_download_and_optimize_formats(img_type, expected_type):
     download_image_mock = MagicMock(return_value=(tmp_img, {}))
 
     # act
-    with patch('imaginex_lambda.handler.download_image', download_image_mock):
-        opt_img_bytes, content_type, ratio = download_and_optimize(sample_url, new_q, new_w)
+    with patch('imaginex_lambda.lib.img_lib.download_image', download_image_mock):
+        opt_img_bytes, content_type, ratio = download_and_optimize(sample_url, new_q, new_w, None, '')
     tmp_img.close()
 
     # assert

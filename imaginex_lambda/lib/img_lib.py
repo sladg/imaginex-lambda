@@ -3,7 +3,7 @@ import shutil
 from contextlib import ExitStack
 from io import BytesIO
 from tempfile import TemporaryFile
-from typing import IO, Tuple, Dict, Any
+from typing import IO, Tuple, Dict, Any, Optional
 from urllib.request import urlopen
 
 import botocore.session
@@ -67,7 +67,8 @@ def get_s3_image(buffer: IO[bytes], bucket_name: str, key: str, chunk_size: int 
     return buffer, {'content_type': content_type, 'content_size': content_size}
 
 
-def optimize_image(buffer: IO[bytes], ext: str, width: int, quality: int) -> bytes:
+def optimize_image(buffer: IO[bytes], ext: str, quality: int,
+                   width: Optional[int] = None, height: Optional[int] = None) -> bytes:
     """
     The optimize_image function is designed to optimize an image that is passed in. It resizes the image
     to the given width (if necessary), compresses the image to reduce its size, and returns the optimized image data.
@@ -76,22 +77,32 @@ def optimize_image(buffer: IO[bytes], ext: str, width: int, quality: int) -> byt
         buffer containing the image data to be optimized.
     ext: str
         the file extension of the image, which is used to specify the format when saving the optimized image.
-    width: int
-        the maximum width of the image. If the image is wider than this value, it will be resized to fit within
-        this width.
     quality: int
         the quality of the compressed image. A higher quality will result in a larger file size, while a lower quality
         will result in a smaller file size.
+    width: Optional[int]
+        the maximum width of the image. If the image is wider than this value, it will be resized to fit within
+        this width.
+    height: Optional[int]
+        the maximum height of the image. If the image is wider than this value, it will be resized to fit within
+        this height.
     """
     logger.info("Optimizing image...")
+
     with ExitStack() as stack:
         img = stack.enter_context(Image.open(buffer))
-        if width < img.width:
-            logger.info("Resizing image...")
+        if width and width < img.width:
+            logger.info(f"Resizing image given width {width}px...")
             new_height = int(width * img.height / img.width)
             logger.info("New height: %d", new_height)
             img = stack.enter_context(img.resize((width, new_height)))
             logger.info("Resized image to width: %d and height: %d", width, new_height)
+        elif height and height < img.height:
+            logger.info(f"Resizing image to the given {height}px...")
+            new_width = int(height * img.width / img.height)
+            logger.info("New height: %d", new_width)
+            img = stack.enter_context(img.resize((new_width, height)))
+            logger.info("Resized image to width: %d and height: %d", width, new_width)
         tmp = stack.enter_context(BytesIO())
         img.save(tmp, quality=quality, optimize=True, format=ext)
         tmp.seek(0)
@@ -100,8 +111,12 @@ def optimize_image(buffer: IO[bytes], ext: str, width: int, quality: int) -> byt
         return tmp.read()
 
 
-def download_and_optimize(url: str, quality: int, width: int, bucket_name: str, chunk_size: int) -> Tuple[
-    bytes, str, float]:
+def download_and_optimize(url: str,
+                          quality: int,
+                          width: Optional[int],
+                          height: Optional[int],
+                          bucket_name: str,
+                          chunk_size: int = 1024) -> Tuple[bytes, str, float]:
     """
     This is the function responsible for coordinating the download and optimization of the images. It should
     not concern itself with any lambda-specific information.
@@ -109,8 +124,18 @@ def download_and_optimize(url: str, quality: int, width: int, bucket_name: str, 
 
     if not url:
         raise HandlerError('url is required')
-    if width <= 0:
+
+    if width is None and height is None:
+        raise HandlerError('Width or height must be defined')
+
+    if width is not None and height is not None:
+        raise HandlerError('Only one of width or height params must be defined')
+
+    if width is not None and width <= 0:
         raise HandlerError('width must be greater than zero')
+
+    if height is not None and height <= 0:
+        raise HandlerError('height must be greater than zero')
 
     with TemporaryFile() as buffer:
         if is_absolute(url):
@@ -128,8 +153,9 @@ def download_and_optimize(url: str, quality: int, width: int, bucket_name: str, 
         image_data = optimize_image(
             buffer,
             ext=extension,
+            quality=quality,
             width=width,
-            quality=quality
+            height=height
         )
 
     ratio = len(image_data) / original if original != 0 else 0
