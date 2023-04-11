@@ -44,7 +44,8 @@ def download_image(buffer: IO[bytes], img_url: str, chunk_size: int = 1024) -> T
     return buffer, {'content_type': content_type, 'content_size': content_size}
 
 
-def get_s3_image(buffer: IO[bytes], bucket_name: str, key: str) -> Tuple[IO[bytes], Dict[str, Any]]:
+def get_s3_image(buffer: IO[bytes], bucket_name: str, key: str, chunk_size: int = 1024) \
+        -> Tuple[IO[bytes], Dict[str, Any]]:
     """
     Function responsible for downloading an image file from an Amazon S3 bucket and writing its contents to a buffer.
     It takes two arguments, buffer and key, and returns a dictionary containing information about the downloaded image.
@@ -59,7 +60,7 @@ def get_s3_image(buffer: IO[bytes], bucket_name: str, key: str) -> Tuple[IO[byte
     content_size = r['ContentLength']
 
     with r['Body'] as fin:
-        shutil.copyfileobj(fin, buffer, DOWNLOAD_CHUNK_SIZE)
+        shutil.copyfileobj(fin, buffer, chunk_size)
 
     logger.info("Downloaded image from S3 with key: %s. Content type: %s, content size: %d", key, content_type,
                 content_size)
@@ -116,7 +117,7 @@ def download_and_optimize(url: str, quality: int, width: int, bucket_name: str, 
             buffer, _ = download_image(buffer, url, chunk_size)
         else:
             key = url.strip('/')
-            buffer, _ = get_s3_image(buffer, bucket_name, key)
+            buffer, _ = get_s3_image(buffer, bucket_name, key, chunk_size)
 
         buffer.flush()
         original = os.stat(buffer.name).st_size
