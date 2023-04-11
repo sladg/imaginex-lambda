@@ -43,3 +43,22 @@ def test_process_success(expected_ratio, expected_type, q, w, url):
     assert isinstance(image_data, bytes)
     assert content_type == expected_type
     assert round(ratio, 4) == expected_ratio
+
+
+@pytest.mark.parametrize('w,h,q', [
+    (None, 100, 80),
+    (80, None, 80),
+    (None, 200, 60),
+    (200, None, 60),
+])
+@pytest.mark.parametrize('expected_type,url', [
+    ('image/jpeg', "https://s3.eu-central-1.amazonaws.com/fllite-dev-main/"
+                   "business_case_custom_images/sun_valley_2_5f84953fef8c6_63a2668275433.jfif"),
+    ('image/jpeg', "https://www.gravatar.com/avatar/617bdc1719f77448a4f96eb92e1ac02b?s=80&d=mp"),
+])
+def test_process_success(expected_type, url, w, h, q):
+    if not url.startswith('http') and S3_BUCKET_NAME is None:
+        pytest.skip('specify a value for S3_BUCKET_NAME to run S3 tests')
+    image_data, content_type, ratio = download_and_optimize(url=url, quality=q, width=w, height=h, bucket_name='')
+    assert isinstance(image_data, bytes)
+    assert content_type == expected_type
