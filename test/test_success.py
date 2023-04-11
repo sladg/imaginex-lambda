@@ -3,6 +3,7 @@ from unittest.mock import patch
 import pytest
 
 from imaginex_lambda.handler import handler, S3_BUCKET_NAME, download_and_optimize
+from unittest.mock import MagicMock
 
 
 def test_handler_success():
@@ -16,10 +17,9 @@ def test_handler_success():
     """
 
     context = {'queryStringParameters': {'url': 'abc.png', 'q': '50', 'w': '100'}}
-    fake_optimization_return = (b'abcdef', 'application/someimage', 0.3)
+    fake_optimization_return = MagicMock(return_value=((b'abcdef', 'application/someimage', 0.3)))
 
-    with patch('imaginex_lambda.handler.download_and_optimize') as p:
-        p.return_value = fake_optimization_return
+    with patch('imaginex_lambda.handler.download_and_optimize', fake_optimization_return) as p:
         r = handler(context, None)
 
     assert r['statusCode'] == 200
