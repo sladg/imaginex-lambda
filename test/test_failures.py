@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 
 from imaginex_lambda.handler import handler, download_and_optimize
-from imaginex_lambda.utils import HandlerError
+from imaginex_lambda.lib.utils import HandlerError
 
 
 def test_no_url():

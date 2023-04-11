@@ -2,17 +2,12 @@ import base64
 import json
 from typing import IO
 from urllib.parse import urlparse
-
 import filetype
+import logging
 
-
-class HandlerError(Exception):
-    code: int
-
-    def __init__(self, msg: str, code=422) -> None:
-        super().__init__(msg)
-        self.code = code
-
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def success(image_data, headers):
     return {
@@ -21,18 +16,6 @@ def success(image_data, headers):
         'isBase64Encoded': True,
         'headers': headers
     }
-
-
-def error(msg: str, code=422):
-    return {
-        'statusCode': code,
-        'body': json.dumps({'error': msg}),
-        'headers': {
-            'Vary': 'Accept',
-            'Content-Type': 'application/json'
-        }
-    }
-
 
 def is_absolute(url: str):
     return bool(urlparse(url).netloc)
