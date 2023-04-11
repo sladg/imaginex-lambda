@@ -102,7 +102,7 @@ def optimize_image(buffer: IO[bytes], ext: str, quality: int,
             new_width = int(height * img.width / img.height)
             logger.info("New height: %d", new_width)
             img = stack.enter_context(img.resize((new_width, height)))
-            logger.info("Resized image to width: %d and height: %d", width, new_width)
+            logger.info("Resized image to width: %d and height: %d", height, new_width)
         tmp = stack.enter_context(BytesIO())
         img.save(tmp, quality=quality, optimize=True, format=ext)
         tmp.seek(0)
