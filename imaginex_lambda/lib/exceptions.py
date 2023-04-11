@@ -1,3 +1,6 @@
+import json
+
+
 class HandlerError(Exception):
     code: int
 
