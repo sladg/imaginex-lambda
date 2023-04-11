@@ -3,6 +3,7 @@ python
 build
 node_modules/**
 .vscode
+.idea
 .pytest_cache/
-
+.DS_Store
 __pycache__
