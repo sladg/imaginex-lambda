@@ -5,11 +5,12 @@ from PIL import Image
 
 from imaginex_lambda.lib.exceptions import HandlerError, error
 from imaginex_lambda.lib.img_lib import download_and_optimize
-from imaginex_lambda.lib.utils import success, logger
+from imaginex_lambda.lib.utils import success, logger, cast_to_int
 
 # @TODO: Add placeholder image for errors.
 
 DOWNLOAD_CHUNK_SIZE = int(os.getenv('DOWNLOAD_CHUNK_SIZE', 1024))
+DEFAULT_QUALITY_PERC = 70
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME', None)
 
 
@@ -17,7 +18,7 @@ def handler(event: Dict, context: Optional[Dict]):
     """
     Lambda function handler.
 
-    Its sole responsibility is to to parse the context and generate a formatted response, including error responses.
+    Its sole responsibility is to parse the context and generate a formatted response, including error responses.
     Any image processing logic should be performed by other functions, to make unit testing easier.
     """
     try:
@@ -25,14 +26,16 @@ def handler(event: Dict, context: Optional[Dict]):
 
         qs = event['queryStringParameters']
         url = qs.get('url', None)
-        width = int(qs.get('w', 0))
-        quality = int(qs.get('q', 70))
+        width = cast_to_int(qs.get('w', None))
+        height = cast_to_int(qs.get('h', None))
+        quality = int(qs.get('q', DEFAULT_QUALITY_PERC))
 
-        logger.info(f"url={url}, width={width}, quality={quality}")
+        logger.info(f"url={url}, width={width}, height={height} quality={quality}")
 
         image_data, content_type, optimization_ratio = download_and_optimize(url,
                                                                              quality,
                                                                              width,
+                                                                             height,
                                                                              S3_BUCKET_NAME,
                                                                              DOWNLOAD_CHUNK_SIZE)
         logger.info("Returning success response")
@@ -55,7 +58,7 @@ if __name__ == '__main__':
     test_context = {
         'queryStringParameters':
             {
-                'q': '40', 'w': '250',
+                'q': '40', 'h': '250',
                 'url': 'https://s3.eu-central-1.amazonaws.com/fllite-dev-main/'
                        'business_case_custom_images/sun_valley_2_5f84953fef8c6_63a2668275433.jfif'}
     }

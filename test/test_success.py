@@ -39,7 +39,7 @@ def test_process_success(expected_ratio, expected_type, q, w, url):
     if not url.startswith('http') and S3_BUCKET_NAME is None:
         pytest.skip('specify a value for S3_BUCKET_NAME to run S3 tests')
 
-    image_data, content_type, ratio = download_and_optimize(url=url, quality=q, width=w)
+    image_data, content_type, ratio = download_and_optimize(url=url, quality=q, width=w, height=None, bucket_name='')
     assert isinstance(image_data, bytes)
     assert content_type == expected_type
     assert round(ratio, 4) == expected_ratio

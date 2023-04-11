@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 
 from imaginex_lambda.handler import handler, download_and_optimize
-from imaginex_lambda.lib.utils import HandlerError
+from imaginex_lambda.lib.exceptions import HandlerError
 
 
 def test_no_url():
@@ -18,7 +18,7 @@ def test_invalid_width(width):
     r = handler({'queryStringParameters': {'url': 'abc.png', 'width': width}}, None)
     assert r['statusCode'] == 422
     assert r['headers']['Content-Type'] == 'application/json'
-    assert "width must be greater than zero" in r['body']
+    assert "Width or height must be defined" in r['body']
 
 
 def test_s3_not_configured():
@@ -45,7 +45,7 @@ def test_download_and_optimize_with_invalid_url():
 
     # act and assert
     with pytest.raises(HandlerError):
-        download_and_optimize(url, quality, width)
+        download_and_optimize(url, quality, width, None, '')
 
 
 def test_download_and_optimize_with_zero_width():
@@ -56,4 +56,4 @@ def test_download_and_optimize_with_zero_width():
 
     # act and assert
     with pytest.raises(HandlerError):
-        download_and_optimize(url, quality, width)
+        download_and_optimize(url, quality, width, None, '')
