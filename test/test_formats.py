@@ -22,6 +22,27 @@ from unittest.mock import MagicMock
     ('BMP', 'image/bmp'),
 ])
 def test_download_and_optimize_formats(img_type, expected_type):
+    # List of possibly available formats in the future (supported only by PIL atm)
+    # ('DIB', 'image/dib'),        # HandlerError: Unsupported image format
+    # ('PPM', 'image/ppm'),        # HandlerError: Unsupported image format
+    # ('BUFR', 'image/BUFR'),      # HandlerError: Unsupported image format
+    # ('PCX', 'image/PCX'),        # HandlerError: Unsupported image format
+    # ('DDS', 'image/DDS'),        # HandlerError: Unsupported image format
+    # ('ICNS', 'image/ICNS'),      # HandlerError: Unsupported image format
+    # ('IM', 'image/IM'),          # HandlerError: Unsupported image format
+    # ('SGI', 'image/SGI'),        # HandlerError: Unsupported image format
+    # ('SPIDER', 'image/SPIDER'),  # HandlerError: Unsupported image format
+    # ('TGA', 'image/TGA'),        # HandlerError: Unsupported image format
+    # ('BLP', 'image/blp'),        # ValueError: Unsupported BLP image mode
+    # ('FITS', 'image/FITS'),      # OSError: FITS save handler not installed
+    # ('GRIB', 'image/GRIB'),      # OSError: GRIB save handler not installed
+    # ('HDF5', 'image/HDF5'),      # OSError: HDF5 save handler not installed
+    # ('WMF', 'image/WMF'),        # OSError: WMF save handler not installed
+    # ('MSP', 'image/MSP'),        # OSError: cannot write mode RGB as Palm
+    # ('PALM', 'image/PALM'),      # OSError: cannot write mode RGB as Palm
+    # ('XBM', 'image/XBM'),        # OSError: cannot write mode RGB as XBM
+    # ('PDF', 'image/PDF'),        # PIL.UnidentifiedImageError
+    # ('EPS', 'image/EPS'),        # Resize error
     # arrange
     original_w, original_h, new_q, new_w = 300, 300, 80, 256
 
@@ -48,25 +69,3 @@ def test_download_and_optimize_formats(img_type, expected_type):
     opt_img_res = Image.open(BytesIO(base64.b64decode(res['body'].encode())))
     assert content_type == expected_type
     assert opt_img_res.width == new_w
-
-# List of possibly available formats in the future (supported only by PIL atm)
-# ('DIB', 'image/dib'),        # HandlerError: Unsupported image format
-# ('PPM', 'image/ppm'),        # HandlerError: Unsupported image format
-# ('BUFR', 'image/BUFR'),      # HandlerError: Unsupported image format
-# ('PCX', 'image/PCX'),        # HandlerError: Unsupported image format
-# ('DDS', 'image/DDS'),        # HandlerError: Unsupported image format
-# ('ICNS', 'image/ICNS'),      # HandlerError: Unsupported image format
-# ('IM', 'image/IM'),          # HandlerError: Unsupported image format
-# ('SGI', 'image/SGI'),        # HandlerError: Unsupported image format
-# ('SPIDER', 'image/SPIDER'),  # HandlerError: Unsupported image format
-# ('TGA', 'image/TGA'),        # HandlerError: Unsupported image format
-# ('BLP', 'image/blp'),        # ValueError: Unsupported BLP image mode
-# ('FITS', 'image/FITS'),      # OSError: FITS save handler not installed
-# ('GRIB', 'image/GRIB'),      # OSError: GRIB save handler not installed
-# ('HDF5', 'image/HDF5'),      # OSError: HDF5 save handler not installed
-# ('WMF', 'image/WMF'),        # OSError: WMF save handler not installed
-# ('MSP', 'image/MSP'),        # OSError: cannot write mode RGB as Palm
-# ('PALM', 'image/PALM'),      # OSError: cannot write mode RGB as Palm
-# ('XBM', 'image/XBM'),        # OSError: cannot write mode RGB as XBM
-# ('PDF', 'image/PDF'),        # PIL.UnidentifiedImageError
-# ('EPS', 'image/EPS'),        # Resize error
