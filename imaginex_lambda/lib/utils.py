@@ -1,8 +1,11 @@
 import base64
 from typing import IO, Dict, Any
 from urllib.parse import urlparse
+
 import filetype
 import logging
+
+from PIL.Image import Image
 
 from imaginex_lambda.lib.exceptions import HandlerError
 
@@ -57,3 +60,23 @@ def cast_to_int(value):
         return int(value)
     except (ValueError, TypeError):
         return None
+
+
+def is_landscape(image: Image) -> bool:
+    """
+    Checks whether an image is landscape or portrait.
+
+    Args:
+        image (PIL.Image): The opened PIL Image object.
+
+    Returns:
+        bool: True if the image is landscape, False if it is portrait.
+    """
+    # Get the width and height of the image
+    width, height = image.size
+
+    # Compare the width and height to determine if the image is landscape or portrait
+    if width > height:
+        return True
+    else:
+        return False
