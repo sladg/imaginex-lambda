@@ -117,7 +117,7 @@ def optimize_image(buffer: IO[bytes],
         elif height and height < img.height:
             logger.info(f"Resizing image to the given {height}px...")
             new_width = int(height * img.width / img.height)
-            logger.info("New height: %d", new_width)
+            logger.info("New width: %d", new_width)
             img = stack.enter_context(img.resize((new_width, height)))
             logger.info("Resized image to width: %d and height: %d", height, new_width)
         tmp = stack.enter_context(BytesIO())
