@@ -10,7 +10,7 @@ import botocore.session
 from PIL import Image
 
 from imaginex_lambda.lib.exceptions import HandlerError
-from imaginex_lambda.lib.utils import is_absolute, get_extension, logger
+from imaginex_lambda.lib.utils import is_absolute, get_extension, logger, is_landscape
 
 # Pillow supported formats:
 # BLP, BMP, DDS, DIB, EPS, GIF, ICNS, ICO, IM, JPG, JPEG, MSP, PCX, PNG, PPM, SPIDER, TGA, TIFF, WEBP, XBM
@@ -108,18 +108,27 @@ def optimize_image(buffer: IO[bytes],
 
     with ExitStack() as stack:
         img = stack.enter_context(Image.open(buffer))
+
+        if width is not None and height is not None:
+            if is_landscape(img):
+                logger.info("Image is in landscape orientation, using width")
+                height = None
+            else:
+                logger.info("Image is in portrait orientation, using height")
+                width = None
+
         if width and width < img.width:
             logger.info(f"Resizing image given width {width}px...")
             new_height = int(width * img.height / img.width)
-            logger.info("New height: %d", new_height)
+            logger.info(f"New height: {new_height}px")
             img = stack.enter_context(img.resize((width, new_height)))
-            logger.info("Resized image to width: %d and height: %d", width, new_height)
+            logger.info(f"Resized image to width:{width}px and height: {new_height}px")
         elif height and height < img.height:
             logger.info(f"Resizing image to the given {height}px...")
             new_width = int(height * img.width / img.height)
-            logger.info("New width: %d", new_width)
+            logger.info(f"New width: {new_width}px")
             img = stack.enter_context(img.resize((new_width, height)))
-            logger.info("Resized image to width: %d and height: %d", height, new_width)
+            logger.info(f"Resized image to width: {new_width}px and height: {height}px")
         tmp = stack.enter_context(BytesIO())
         img.save(tmp, quality=quality, optimize=True, format=ext)
         tmp.seek(0)
@@ -160,9 +169,6 @@ def download_and_optimize(url: str,
 
     if width is None and height is None:
         raise HandlerError('Width or height must be defined')
-
-    if width is not None and height is not None:
-        raise HandlerError('Only one of width or height params must be defined')
 
     if width is not None and width <= 0:
         raise HandlerError('width must be greater than zero')

@@ -58,7 +58,7 @@ if __name__ == '__main__':
     test_context = {
         'queryStringParameters':
             {
-                'q': '40', 'h': '250',
+                'q': '40', 'h': '250', 'w': '250',
                 'url': 'https://s3.eu-central-1.amazonaws.com/fllite-dev-main/'
                        'business_case_custom_images/sun_valley_2_5f84953fef8c6_63a2668275433.jfif'}
     }
