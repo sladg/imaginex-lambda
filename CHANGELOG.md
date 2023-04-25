@@ -1,6 +1,23 @@
 # Changelog
 
 
+## [v0.17.0](https://github.com/sladg/imaginex-lambda/compare/v0.7.0...v0.17.0)
+
+* feat(img_lib): portrait vs landscape [[6a09c9472dc86578d8b08b3921f5749dc3ece9b4](https://github.com/sladg/imaginex-lambda/commit/6a09c9472dc86578d8b08b3921f5749dc3ece9b4))]
+* fix(img_lib): logger fix [[7cc415318916767fafba6d5738453bbeae6d11c4](https://github.com/sladg/imaginex-lambda/commit/7cc415318916767fafba6d5738453bbeae6d11c4))]
+* test(formats): moved list of not supported formats into fun [[7a2011c885c0323100470bfdaa3cb1e26d32dc9f](https://github.com/sladg/imaginex-lambda/commit/7a2011c885c0323100470bfdaa3cb1e26d32dc9f))]
+* refactor(tests,libs): added tests, readme, docstrings [[073f9ff91ecf3f51ef9ad289fcb880dbaac1c6fd](https://github.com/sladg/imaginex-lambda/commit/073f9ff91ecf3f51ef9ad289fcb880dbaac1c6fd))]
+* test(success): magicmock [[f5dc6b14e37615f8db397fd9091dfb1612cc95c0](https://github.com/sladg/imaginex-lambda/commit/f5dc6b14e37615f8db397fd9091dfb1612cc95c0))]
+* test(success): height [[b5b8c96c76b11eeac5f91e643ddd18717e587d13](https://github.com/sladg/imaginex-lambda/commit/b5b8c96c76b11eeac5f91e643ddd18717e587d13))]
+* test(tests): updated tests [[6453d0e294c7bfde91af8ed8f52444e477be2ab9](https://github.com/sladg/imaginex-lambda/commit/6453d0e294c7bfde91af8ed8f52444e477be2ab9))]
+* fix(img_lib): missing import [[78d084d301d0b8763cb2c73ef317caf83564e133](https://github.com/sladg/imaginex-lambda/commit/78d084d301d0b8763cb2c73ef317caf83564e133))]
+* refactor(utils): logger [[5c0bf36a33f7389c8f699d8e9f2822f14cb88239](https://github.com/sladg/imaginex-lambda/commit/5c0bf36a33f7389c8f699d8e9f2822f14cb88239))]
+* refactor(utils): typings [[4ff2390ba37c029eae656526b4074900c69a76b8](https://github.com/sladg/imaginex-lambda/commit/4ff2390ba37c029eae656526b4074900c69a76b8))]
+* fix(exceptions): missing import [[02d01d0189dc4a15746ff7ebdd803eed48d2a8c5](https://github.com/sladg/imaginex-lambda/commit/02d01d0189dc4a15746ff7ebdd803eed48d2a8c5))]
+* refactor(lib): restructuring files structure [[1f71342ddd4414ddd99c1daeb3f6ff4635d272df](https://github.com/sladg/imaginex-lambda/commit/1f71342ddd4414ddd99c1daeb3f6ff4635d272df))]
+* refactor(handler,-utests): updates, refactoring, testing [[87d9e0611f7b051808dc877b388936bfc80c93d8](https://github.com/sladg/imaginex-lambda/commit/87d9e0611f7b051808dc877b388936bfc80c93d8))]
+
+
 ## [v0.7.0](https://github.com/sladg/imaginex-lambda/compare/v0.5.0...v0.7.0)
 
 * 🐛 fix(ratio): prevent future "division by zero" bugs on ratio calculation [[ef778bc8a147701265e162fc8d93089d9898ff1f](https://github.com/sladg/imaginex-lambda/commit/ef778bc8a147701265e162fc8d93089d9898ff1f))]
@@ -55,6 +72,19 @@
 
 ## [v0.0.1](https://github.com/sladg/imaginex-lambda/compare/v0.0.1)
 
+* feat(img_lib): portrait vs landscape [[6a09c9472dc86578d8b08b3921f5749dc3ece9b4](https://github.com/sladg/imaginex-lambda/commit/6a09c9472dc86578d8b08b3921f5749dc3ece9b4))]
+* fix(img_lib): logger fix [[7cc415318916767fafba6d5738453bbeae6d11c4](https://github.com/sladg/imaginex-lambda/commit/7cc415318916767fafba6d5738453bbeae6d11c4))]
+* test(formats): moved list of not supported formats into fun [[7a2011c885c0323100470bfdaa3cb1e26d32dc9f](https://github.com/sladg/imaginex-lambda/commit/7a2011c885c0323100470bfdaa3cb1e26d32dc9f))]
+* refactor(tests,libs): added tests, readme, docstrings [[073f9ff91ecf3f51ef9ad289fcb880dbaac1c6fd](https://github.com/sladg/imaginex-lambda/commit/073f9ff91ecf3f51ef9ad289fcb880dbaac1c6fd))]
+* test(success): magicmock [[f5dc6b14e37615f8db397fd9091dfb1612cc95c0](https://github.com/sladg/imaginex-lambda/commit/f5dc6b14e37615f8db397fd9091dfb1612cc95c0))]
+* test(success): height [[b5b8c96c76b11eeac5f91e643ddd18717e587d13](https://github.com/sladg/imaginex-lambda/commit/b5b8c96c76b11eeac5f91e643ddd18717e587d13))]
+* test(tests): updated tests [[6453d0e294c7bfde91af8ed8f52444e477be2ab9](https://github.com/sladg/imaginex-lambda/commit/6453d0e294c7bfde91af8ed8f52444e477be2ab9))]
+* fix(img_lib): missing import [[78d084d301d0b8763cb2c73ef317caf83564e133](https://github.com/sladg/imaginex-lambda/commit/78d084d301d0b8763cb2c73ef317caf83564e133))]
+* refactor(utils): logger [[5c0bf36a33f7389c8f699d8e9f2822f14cb88239](https://github.com/sladg/imaginex-lambda/commit/5c0bf36a33f7389c8f699d8e9f2822f14cb88239))]
+* refactor(utils): typings [[4ff2390ba37c029eae656526b4074900c69a76b8](https://github.com/sladg/imaginex-lambda/commit/4ff2390ba37c029eae656526b4074900c69a76b8))]
+* fix(exceptions): missing import [[02d01d0189dc4a15746ff7ebdd803eed48d2a8c5](https://github.com/sladg/imaginex-lambda/commit/02d01d0189dc4a15746ff7ebdd803eed48d2a8c5))]
+* refactor(lib): restructuring files structure [[1f71342ddd4414ddd99c1daeb3f6ff4635d272df](https://github.com/sladg/imaginex-lambda/commit/1f71342ddd4414ddd99c1daeb3f6ff4635d272df))]
+* refactor(handler,-utests): updates, refactoring, testing [[87d9e0611f7b051808dc877b388936bfc80c93d8](https://github.com/sladg/imaginex-lambda/commit/87d9e0611f7b051808dc877b388936bfc80c93d8))]
 * 🐛 fix(ratio): prevent future "division by zero" bugs on ratio calculation [[ef778bc8a147701265e162fc8d93089d9898ff1f](https://github.com/sladg/imaginex-lambda/commit/ef778bc8a147701265e162fc8d93089d9898ff1f))]
 * 🐛 fix(ratio): handle very small image edge case [[563f886fe3a31a14e22c473b98b2bcd6d26c9759](https://github.com/sladg/imaginex-lambda/commit/563f886fe3a31a14e22c473b98b2bcd6d26c9759))]
 * ♻️ refactor(handler): isolates the handler code from the image processing [[6731100aa4cb71acbb6aba48755717339987b80a](https://github.com/sladg/imaginex-lambda/commit/6731100aa4cb71acbb6aba48755717339987b80a))]
