@@ -178,11 +178,12 @@ def download_and_optimize(url: str,
         raise HandlerError('height must be greater than zero')
 
     with TemporaryFile() as buffer:
-        if is_absolute(url):
-            buffer, _ = download_image(buffer, url, chunk_size)
         if is_s3(url):
-            bucket_name, key = unquote(url).replace('s3://', '').split('/', 1)
-            buffer, _ = get_s3_image(buffer, bucket_name, key, chunk_size)
+            dynamic_bucket, key = unquote(url).replace('s3://', '').split('/', 1)
+            logger.info("Dynamic bucket: %s", dynamic_bucket)
+            buffer, _ = get_s3_image(buffer, dynamic_bucket, key, chunk_size)
+        elif is_absolute(url):
+            buffer, _ = download_image(buffer, url, chunk_size)
         else:
             key = url.strip('/')
             buffer, _ = get_s3_image(buffer, bucket_name, key, chunk_size)
