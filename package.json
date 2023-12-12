@@ -1,6 +1,6 @@
 {
   "name": "@sladg/imaginex-lambda",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "Pre-compiled python lambda used for image processing",
   "repository": {
     "type": "git",
