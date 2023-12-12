@@ -1,6 +1,11 @@
 # Changelog
 
 
+## [v0.18.0](https://github.com/sladg/imaginex-lambda/compare/v0.17.0...v0.18.0)
+
+* ✨ feat(s3): allow for specifying bucketname withing the url [[8b8d57e18952c2c564203ba45538329845be2951](https://github.com/sladg/imaginex-lambda/commit/8b8d57e18952c2c564203ba45538329845be2951))]
+
+
 ## [v0.17.0](https://github.com/sladg/imaginex-lambda/compare/v0.7.0...v0.17.0)
 
 * feat(img_lib): portrait vs landscape [[6a09c9472dc86578d8b08b3921f5749dc3ece9b4](https://github.com/sladg/imaginex-lambda/commit/6a09c9472dc86578d8b08b3921f5749dc3ece9b4))]
@@ -72,6 +77,7 @@
 
 ## [v0.0.1](https://github.com/sladg/imaginex-lambda/compare/v0.0.1)
 
+* ✨ feat(s3): allow for specifying bucketname withing the url [[8b8d57e18952c2c564203ba45538329845be2951](https://github.com/sladg/imaginex-lambda/commit/8b8d57e18952c2c564203ba45538329845be2951))]
 * feat(img_lib): portrait vs landscape [[6a09c9472dc86578d8b08b3921f5749dc3ece9b4](https://github.com/sladg/imaginex-lambda/commit/6a09c9472dc86578d8b08b3921f5749dc3ece9b4))]
 * fix(img_lib): logger fix [[7cc415318916767fafba6d5738453bbeae6d11c4](https://github.com/sladg/imaginex-lambda/commit/7cc415318916767fafba6d5738453bbeae6d11c4))]
 * test(formats): moved list of not supported formats into fun [[7a2011c885c0323100470bfdaa3cb1e26d32dc9f](https://github.com/sladg/imaginex-lambda/commit/7a2011c885c0323100470bfdaa3cb1e26d32dc9f))]

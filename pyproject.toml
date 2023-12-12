@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "imaginex-lambda"
-version = "0.17.0"
+version = "0.18.0"
 description = "Image optimizer for processing NextJS image requests"
 authors = ["Jan Soukup <jan@ssoukup.com>"]
 
