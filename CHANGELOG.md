@@ -1,6 +1,11 @@
 # Changelog
 
 
+## [v0.18.2](https://github.com/sladg/imaginex-lambda/compare/v0.18.1...v0.18.2)
+
+* 🐛 fix(s3): correct order of ifs, fixed parsing edgecases [[ddcf30b38a4386abb6ed2655d925af169bca2cff](https://github.com/sladg/imaginex-lambda/commit/ddcf30b38a4386abb6ed2655d925af169bca2cff))]
+
+
 ## [v0.18.1](https://github.com/sladg/imaginex-lambda/compare/v0.18.0...v0.18.1)
 
 * 🐛 fix(s3): parse encoded http uri [[dd6596ad37d1f100c1ec1e2951701384452b67a6](https://github.com/sladg/imaginex-lambda/commit/dd6596ad37d1f100c1ec1e2951701384452b67a6))]
@@ -82,6 +87,7 @@
 
 ## [v0.0.1](https://github.com/sladg/imaginex-lambda/compare/v0.0.1)
 
+* 🐛 fix(s3): correct order of ifs, fixed parsing edgecases [[ddcf30b38a4386abb6ed2655d925af169bca2cff](https://github.com/sladg/imaginex-lambda/commit/ddcf30b38a4386abb6ed2655d925af169bca2cff))]
 * 🐛 fix(s3): parse encoded http uri [[dd6596ad37d1f100c1ec1e2951701384452b67a6](https://github.com/sladg/imaginex-lambda/commit/dd6596ad37d1f100c1ec1e2951701384452b67a6))]
 * ✨ feat(s3): allow for specifying bucketname withing the url [[8b8d57e18952c2c564203ba45538329845be2951](https://github.com/sladg/imaginex-lambda/commit/8b8d57e18952c2c564203ba45538329845be2951))]
 * feat(img_lib): portrait vs landscape [[6a09c9472dc86578d8b08b3921f5749dc3ece9b4](https://github.com/sladg/imaginex-lambda/commit/6a09c9472dc86578d8b08b3921f5749dc3ece9b4))]
