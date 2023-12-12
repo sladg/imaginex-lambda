@@ -179,6 +179,9 @@ def download_and_optimize(url: str,
     with TemporaryFile() as buffer:
         if is_absolute(url):
             buffer, _ = download_image(buffer, url, chunk_size)
+        if url.startswith('s3://'):
+            bucket_name, key = url[len('s3://'):].split('/', 1)
+            buffer, _ = get_s3_image(buffer, bucket_name, key, chunk_size)
         else:
             key = url.strip('/')
             buffer, _ = get_s3_image(buffer, bucket_name, key, chunk_size)
