@@ -5,12 +5,13 @@ from io import BytesIO
 from tempfile import TemporaryFile
 from typing import IO, Tuple, Dict, Any, Optional
 from urllib.request import urlopen
+from urllib.parse import unquote
 
 import botocore.session
 from PIL import Image
 
 from imaginex_lambda.lib.exceptions import HandlerError
-from imaginex_lambda.lib.utils import is_absolute, get_extension, logger, is_landscape
+from imaginex_lambda.lib.utils import is_absolute, is_s3, get_extension, logger, is_landscape
 
 # Pillow supported formats:
 # BLP, BMP, DDS, DIB, EPS, GIF, ICNS, ICO, IM, JPG, JPEG, MSP, PCX, PNG, PPM, SPIDER, TGA, TIFF, WEBP, XBM
@@ -179,8 +180,8 @@ def download_and_optimize(url: str,
     with TemporaryFile() as buffer:
         if is_absolute(url):
             buffer, _ = download_image(buffer, url, chunk_size)
-        if url.startswith('s3://'):
-            bucket_name, key = url[len('s3://'):].split('/', 1)
+        if is_s3(url):
+            bucket_name, key = unquote(url).replace('s3://', '').split('/', 1)
             buffer, _ = get_s3_image(buffer, bucket_name, key, chunk_size)
         else:
             key = url.strip('/')

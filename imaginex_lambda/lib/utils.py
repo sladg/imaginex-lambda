@@ -1,6 +1,6 @@
 import base64
 from typing import IO, Dict, Any
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 import filetype
 import logging
@@ -22,10 +22,11 @@ def success(image_data: bytes, headers: Dict[str, Any]) -> Dict[str, Any]:
         'headers': headers
     }
 
-
 def is_absolute(url: str) -> bool:
     return bool(urlparse(url).netloc)
 
+def is_s3(url: str) -> bool:
+    return unquote(url).startswith('s3://')
 
 def get_extension(buffer: IO[bytes]) -> Dict:
     """
